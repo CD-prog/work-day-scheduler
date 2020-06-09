@@ -18,6 +18,27 @@ var save4Pm = document.getElementById("save4Pm")
 var task5Pm = document.getElementById("task5Pm")
 var save5Pm = document.getElementById("save5Pm")
 
+var elementRefs = {
+ task9Am : document.getElementById("task9Am"),
+ save9Am : document.getElementById("save9Am"),
+ task10Am : document.getElementById("task10Am"),
+ save10am : document.getElementById("save10Am"),
+ task11Am : document.getElementById("task11Am"),
+ save11am : document.getElementById("save11Am"),
+ task12Pm : document.getElementById("task12Pm"),
+ save12Pm : document.getElementById("save12Pm"),
+ task1Pm : document.getElementById("task1Pm"),
+ save1Pm : document.getElementById("save1Pm"),
+ task2Pm : document.getElementById("task2Pm"),
+ save2Pm : document.getElementById("save2Pm"),
+ task3Pm : document.getElementById("task3Pm"),
+ save3Pm : document.getElementById("save3Pm"),
+ task4Pm : document.getElementById("task4Pm"),
+ save4Pm : document.getElementById("save4Pm"),
+ task5Pm : document.getElementById("task5Pm"),
+ save5Pm : document.getElementById("save5Pm"),
+}
+//Load local storage data
 task9Am.innerHTML=localStorage.getItem("task9Am")
 task10Am.innerHTML=localStorage.getItem("task10Am")
 task11Am.innerHTML=localStorage.getItem("task11Am")
@@ -31,17 +52,26 @@ task5Pm.innerHTML=localStorage.getItem("task5Pm")
 var time = moment().format("HH")
 var dataId = $("#task9Am").attr("data-id")
 
-// console.log(time)
-// console.log(dataId)
-// if ((task9Am.getAttribute("data-id"))< time){
-//     $("task9Am").addClass("bg-danger")
-// }
-
+// Function for updating the clock every second
 setInterval(function(){
     $("#currentDay").text(moment());
  },1000);
 
+//Here I change the colors of time blocks based on current time of day
+$('[id*="task"]').each(function(index, el){
+    var timeSlot = $(el).attr('data-id');
+    if (+timeSlot > time){
+     $(el).addClass("bg-success");
+}
+    else if (+timeSlot < time){
+     $(el).addClass("bg-secondary");
+    } 
+    else {
+        $(el).addClass("bg-danger");
+    }
+});
 
+// Add data to calendar and save it to local storage 
  task9Am.addEventListener("click", function(){
      task9Am.innerHTML = prompt("Please add event")
  })
